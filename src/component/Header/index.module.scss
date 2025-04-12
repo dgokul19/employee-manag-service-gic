@@ -1,0 +1,33 @@
+.header_container{
+    width: 100%;
+    height: 70px;
+    background-color: var(--white);
+    border-bottom: 1px solid var(--border-grey);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    .logo{
+        width:  120px;
+        img {
+            width: 100%;
+        }
+    }
+    .settings{
+        display: flex;
+        gap: 20px;
+        i {
+            font-size: 1.2rem;
+            color: var(--color-green);
+        }
+    }
+    h3{
+        text-transform: uppercase;
+        color: var(--color-green);
+    }
+}
+
+.containerFlex{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}

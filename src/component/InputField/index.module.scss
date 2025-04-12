@@ -1,0 +1,26 @@
+.formGroup {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+    label {
+        font-size: .95rem;
+        margin-bottom: 10px;
+    }
+    input {
+        height: 50px;
+        border: 1px solid var(--ccc-grey);
+        border-radius: 3px;
+        background-color: var(--white);
+        text-indent: 10px;
+        margin-bottom: 5px;
+        &.errorField {
+            border: 1px solid var(--border-red);
+            color : var(--color-red)
+        }
+    }
+    .errorField{
+        margin-top: 0;
+        color: var(--color-red);
+        font-size: .9rem;
+    }
+}

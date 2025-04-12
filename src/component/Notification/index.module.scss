@@ -1,0 +1,68 @@
+.notificationElem {
+    position: fixed;
+    min-width: 280px;
+    max-width: 350px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    background-color: var(--bg-grey);
+    border: 1px solid var(--bg-grey);
+    top: 15px;
+    right: 20px;
+    padding: 5px 10px;
+    border-radius: 6px;
+    transition: .1s ease-in-out all;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+    animation: slideIn 0.4s ease-out, fadeOut 0.4s ease-in 2.6s forwards;
+    z-index: 9999;
+    font-size: .85rem;
+
+    &.success {
+        border-color: var(--border-green);
+        // background-color: var(--color-green);
+        background-color: #4caf50;
+        color: var(--white);
+
+        button {
+            color: var(--white);
+        }
+    }
+
+    &.error {
+        border-color: var(--border-red);
+        // background-color: var(--color-red);
+        background-color: #f44336;
+        color: var(--white);
+
+        button {
+            color: var(--white);
+        }
+    }
+
+    span {
+        flex: 1;
+    }
+
+    button {
+        background: none;
+        border: none;
+    }
+}
+
+@keyframes slideIn {
+    from {
+      opacity: 0;
+      transform: translateX(100%);
+    }
+    to {
+      opacity: 1;
+      transform: translateX(0%);
+    }
+  }
+  
+  @keyframes fadeOut {
+    to {
+      opacity: 0;
+      transform: translateX(100%);
+    }
+  }

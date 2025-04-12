@@ -1,0 +1,24 @@
+.formGroup {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+    label {
+        font-size: .95rem;
+        margin-bottom: 10px;
+    }
+    .radionElements{
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        text-transform: capitalize;
+    }
+    input {
+        width: 20px;
+        height: 20px;
+    }
+    .errorField{
+        margin-top: 0;
+        color: var(--color-red);
+        font-size: .9rem;
+    }
+}
