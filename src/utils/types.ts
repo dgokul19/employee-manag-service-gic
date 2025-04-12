@@ -15,7 +15,7 @@ export interface EmployeeProps {
   gender:  string,
   dob: string,
   joinedDate: string,
-  id: string | null
+  id: string
 }
 
 export interface FieldInputProps {
@@ -35,4 +35,18 @@ export interface NotificationProps {
   message: string
   type: string
   onClose: () => void
+}
+
+
+export type DeleteModalProps = {
+    isOpen: boolean;
+    onClose: () => void;
+    onConfirm: (id: string) => void;
+    title?: string;
+    deleteId? : string;
+    message?: string;
+};
+export type DefaultDeleteModalProps = {
+  isOpen : boolean,
+  rowId : string
 }

@@ -6,10 +6,12 @@ import classes from "./index.module.scss";
 
 type TableProps = {
     data: EmployeeProps[];
+    editHandler? : (rowId: string) => void,
+    deleteHandler? : (rowId: string) => void,
 };
 
 
-function Table({ data }: TableProps) {
+function Table({ data, editHandler, deleteHandler }: TableProps) {
     return (
       <table className={classes.table_container}>
         <thead>
@@ -26,7 +28,7 @@ function Table({ data }: TableProps) {
         </thead>
         <tbody>
             {
-                data.map(row => (
+                data?.map(row => (
                     <tr key={row.id}>
                         <td>{row.firstName}</td>
                         <td>{row.lastName}</td>
@@ -37,8 +39,8 @@ function Table({ data }: TableProps) {
                         <td>{formatDate(row.joinedDate)}</td>
                         <td>
                             <ul className={classes.icons}>
-                                <li><i className="fa fa-pencil"></i></li>
-                                <li className={classes.delete}><i className="fa fa-trash-o"></i></li>
+                                <li onClick={() => editHandler?.(row?.id)}><i className="fa fa-pencil"></i></li>
+                                <li onClick={() => deleteHandler?.(row?.id)} className={classes.delete}><i className="fa fa-trash-o"></i></li>
                             </ul>
                         </td>
                     </tr>

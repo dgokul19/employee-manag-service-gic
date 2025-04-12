@@ -29,7 +29,9 @@ function App() {
             <Route path="/employee">
               <Route index  element={<EmployeeList />}/>
               <Route path="add" element={<EmployeeForm />}/>
-              <Route path="edit" element={<EmployeeForm />}/>
+              <Route path="edit">
+                <Route path=":id" element={<EmployeeForm />}/>
+              </Route>
             </Route>
           </Routes>
         </BrowserRouter>

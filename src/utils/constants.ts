@@ -1,12 +1,13 @@
-import { EmployeeProps } from "./types";
+import { DefaultDeleteModalProps, EmployeeProps } from "./types";
 
 export const employeeForm: EmployeeProps = {
-    id: null,
+    id: '',
     firstName: '',
     lastName: '',
     emailAddress: "",
     phoneNumber: "",
     gender: "",
     dob: "",
-    joiningDate: ""
+    joinedDate: ""
 }
+export const deleteModalValues:DefaultDeleteModalProps = { isOpen: false, rowId: '' };

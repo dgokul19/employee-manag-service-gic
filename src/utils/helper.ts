@@ -7,12 +7,18 @@ export function generateUUID() {
       });
 }
 
-export function formatDate (date: string) {
-    if(!date) return null;
-
-    return new Date(date).toLocaleDateString("en-us", {
-        day : "2-digit",
-        month : "short",
-        year : "numeric"
-    })
-};
+export function formatDate(dateStr: string, format: string = 'YYYY-MM-DD'): string {
+    if(!dateStr) return '';;
+    const pad = (n: number): string => n.toString().padStart(2, '0');
+    let date = new Date(dateStr);
+    const map: Record<string, string> = {
+      YYYY: date.getFullYear().toString(),
+      MM: pad(date.getMonth() + 1),
+      DD: pad(date.getDate()),
+      HH: pad(date.getHours()),
+      mm: pad(date.getMinutes()),
+      ss: pad(date.getSeconds())
+    };
+  
+    return format.replace(/YYYY|MM|DD|HH|mm|ss/g, token => map[token]);
+  }

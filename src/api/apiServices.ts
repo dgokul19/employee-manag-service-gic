@@ -19,3 +19,22 @@ export const postEmployees = (employee: EmployeeProps) => {
     responseArray.unshift(employee);
     sessionStorage.setItem("employees", JSON.stringify(responseArray))
 };
+
+export const updateEmployeeData = (employee: EmployeeProps) => {
+    let response = sessionStorage.getItem("employees") || '[]';
+    let responseArray = JSON.parse(response);
+    responseArray = responseArray.map((emp: EmployeeProps) => {
+        if(emp.id === employee.id){
+            return employee;
+        }
+        return emp;
+    });
+    sessionStorage.setItem("employees", JSON.stringify(responseArray))
+};
+
+export const deleteEmployeeRecord = (id: string) => {
+    let response = sessionStorage.getItem("employees") || '[]';
+    let responseArray = JSON.parse(response);
+    responseArray = responseArray.filter((emp: EmployeeProps) => emp.id !== id);
+    sessionStorage.setItem("employees", JSON.stringify(responseArray))
+};

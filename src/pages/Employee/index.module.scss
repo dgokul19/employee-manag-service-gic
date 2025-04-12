@@ -38,4 +38,25 @@
             gap: 3rem;
         }
     }
+
+    .footRow{
+        display: flex;
+        justify-content: flex-end;
+        align-items: center;
+        gap: 1rem;
+        
+        .backBtn{
+            background-color: var(--bg-grey);
+            border: 1px solid var(--title-grey);
+            padding: 7px 14px;
+            min-width: 95px;
+            text-align: center;
+            border-radius: 4px;
+            transition: .3s linear all;
+            cursor: pointer;
+            &:hover {
+                background-color: rgba(0,0,0,.1);
+            }
+        }
+    }
 }

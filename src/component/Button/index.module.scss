@@ -7,4 +7,10 @@
     letter-spacing: 1px;
     cursor: pointer;
     background-color: var(--color-green);
+    transition: .2s ease-in-out all;
+
+    &:hover{
+        // background-color: rgba(0,0,0,.1);
+        opacity: .8;
+    }
 }

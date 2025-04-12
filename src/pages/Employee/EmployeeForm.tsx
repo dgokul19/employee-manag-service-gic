@@ -1,4 +1,7 @@
+
+import { useEffect, useState } from "react";
 import { SubmitHandler, useForm } from "react-hook-form";
+import { useNavigate, useParams } from "react-router";
 
 import Button from "../../component/Button";
 import Container from "../../component/Container";
@@ -7,33 +10,56 @@ import Radiobutton from "../../component/Radiobutton";
 import Notification from "../../component/Notification";
 
 // Utils/Constants/Types
-import { postEmployees } from "../../api/apiServices";
+import { postEmployees, updateEmployeeData } from "../../api/apiServices";
 import { EmployeeProps } from "../../utils/types";
 import { employeeForm } from "../../utils/constants";
-import { generateUUID } from "../../utils/helper";
+import { formatDate, generateUUID } from "../../utils/helper";
 import { useNotification } from "../../hooks/useNotification";
+import { useAppDispatch, useAppSelector } from "../../hooks";
 
 // SCSS
 import classes from "./index.module.scss";
-import { useNavigate } from "react-router";
+import { selectEmployeeById } from "../../store/reducer/empoyeeReducer";
 
 const EmployeeForm = () => {
-    const { notification, showNotification, clearNotification } = useNotification();
     const navigate = useNavigate();
+    const { id: recordId } = useParams();
+    const { notification, showNotification, clearNotification } = useNotification();
+    const [formValues, setFormValues] = useState({ ...employeeForm });
 
     const { register, handleSubmit, watch, reset, formState: { errors } } = useForm<EmployeeProps>({
-        defaultValues: { ...employeeForm }
+        defaultValues: { ...employeeForm },
+        values: formValues
     });
     const dobField = watch("dob");
+
+    let editRecord = Object.assign({}, useAppSelector(selectEmployeeById(recordId)));
+
+    useEffect(() => {
+        if (recordId && editRecord) {
+            editRecord.dob = formatDate(editRecord.dob);
+            editRecord.joinedDate = formatDate(editRecord.joinedDate);
+            setFormValues(editRecord);
+        }
+    }, [recordId]);
+
+
 
 
     const onSubmit: SubmitHandler<EmployeeProps> = (data) => {
         const params = Object.assign({}, data);
-        params.id = generateUUID();
-        postEmployees(params);
-        showNotification(`New Employee has been created`, "error");
-        reset({ ...employeeForm });
-        navigate("/");
+        if (!params.id) {
+            params.id = params.id ?? generateUUID();
+            postEmployees(params);
+            showNotification(`New Employee has been created`, "success");
+        } else {
+            updateEmployeeData(params);
+            showNotification(`Employee details has been updated`, "success");
+        }
+        setTimeout(() => {
+            reset({ ...employeeForm });
+            navigate("/");
+        }, 2000);
     }
 
 
@@ -41,7 +67,7 @@ const EmployeeForm = () => {
         <div className={`${classes.employee_container} ${classes.formContainer}`}>
             <Container>
                 <div className={classes.table_tile}>
-                    <h2>Add New Employee</h2>
+                    <h2> {recordId ? `Edit` : `Add`} Employee</h2>
                 </div>
 
                 <div className={classes.employee_form_container}>
@@ -141,7 +167,10 @@ const EmployeeForm = () => {
                                 error={errors.gender?.message}
                             />
                         </div>
-                        <Button style={{ padding: '12px 18px' }}>Submit</Button>
+                        <div className={classes.footRow}>
+                            <div className={classes.backBtn} onClick={() => navigate('/')}>Back</div>
+                            <Button style={{ padding: '12px 18px' }}>Submit</Button>
+                        </div>
                     </form>
                 </div>
             </Container>

@@ -1,5 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit'
-import type { PayloadAction } from '@reduxjs/toolkit'
+import { createSelector } from '@reduxjs/toolkit';
 
 // Types
 import { EmployeeProps } from '../../utils/types'
@@ -9,13 +9,11 @@ import { RootState } from '../store'
 // Define a type for the slice state
 interface EmployeeReducerProps {
   employees: EmployeeProps[],
-  selected : EmployeeProps | null
 }
 
 // Define the initial state using that type
 const initialState: EmployeeReducerProps = {
-    employees: [],
-    selected : null
+  employees: [],
 }
 
 export const employeeSlice = createSlice({
@@ -26,12 +24,16 @@ export const employeeSlice = createSlice({
     updateEmployees: (state, action) => {
       state.employees = action.payload.employees
     },
-    updateSelectedEmployee : (state, action) => {
-        state.selected = action.payload
-    }
   },
 })
 
-export const { updateEmployees, updateSelectedEmployee } = employeeSlice.actions
+export const { updateEmployees } = employeeSlice.actions
 
-export default employeeSlice.reducer
+export default employeeSlice.reducer;
+
+export const selectEmployees = (state: RootState) => state.employees.employees;
+
+export const selectEmployeeById = (id:string | undefined) =>
+  createSelector([selectEmployees], (employees) =>
+    employees?.find((emp:EmployeeProps) => emp.id === id)
+  );

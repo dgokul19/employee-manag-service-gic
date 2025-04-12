@@ -1,6 +1,6 @@
 import React from "react";
 // CSS
-import classes from "./index.module.css";
+import classes from "./index.module.scss";
 
 interface ButtonProps {
     style? : object,
