@@ -9,8 +9,16 @@ import { EmployeeProps } from "../utils/types";
 // };
 
 export const fetchEmployees = () => {
-    const response = sessionStorage.getItem("employees") || '[]';
-    return JSON.parse(response);
+    return new Promise((resolve,reject) => {
+        if(true){
+            setTimeout(() => {
+                const response = sessionStorage.getItem("employees") || '[]';
+                resolve(JSON.parse(response));
+            }, 300);
+        } else {
+            reject(`Error fetching data`);
+        }
+    });
 };
 
 export const postEmployees = (employee: EmployeeProps) => {
@@ -24,7 +32,7 @@ export const updateEmployeeData = (employee: EmployeeProps) => {
     let response = sessionStorage.getItem("employees") || '[]';
     let responseArray = JSON.parse(response);
     responseArray = responseArray.map((emp: EmployeeProps) => {
-        if(emp.id === employee.id){
+        if (emp.id === employee.id) {
             return employee;
         }
         return emp;

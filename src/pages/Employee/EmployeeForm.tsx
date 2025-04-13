@@ -12,10 +12,10 @@ import Notification from "../../component/Notification";
 // Utils/Constants/Types
 import { postEmployees, updateEmployeeData } from "../../api/apiServices";
 import { EmployeeProps } from "../../utils/types";
-import { employeeForm } from "../../utils/constants";
-import { formatDate, generateUUID } from "../../utils/helper";
+import { employeeForm, FORM_FIELDS } from "../../utils/constants";
+import { formatDate, formHandlerProps, generateUUID } from "../../utils/helper";
 import { useNotification } from "../../hooks/useNotification";
-import { useAppDispatch, useAppSelector } from "../../hooks";
+import { useAppSelector } from "../../hooks";
 
 // SCSS
 import classes from "./index.module.scss";
@@ -44,8 +44,6 @@ const EmployeeForm = () => {
     }, [recordId]);
 
 
-
-
     const onSubmit: SubmitHandler<EmployeeProps> = (data) => {
         const params = Object.assign({}, data);
         if (!params.id) {
@@ -59,7 +57,7 @@ const EmployeeForm = () => {
         setTimeout(() => {
             reset({ ...employeeForm });
             navigate("/");
-        }, 2000);
+        },1000);
     }
 
 
@@ -74,33 +72,13 @@ const EmployeeForm = () => {
                     <form onSubmit={handleSubmit(onSubmit)}>
                         <div className={classes.formRow}>
                             <InputField
-                                {...register("firstName", {
-                                    required: `First name is required`,
-                                    minLength: {
-                                        value: 6,
-                                        message: 'Minimum character length is 6'
-                                    },
-                                    maxLength: {
-                                        value: 10,
-                                        message: 'Maximum character length is 10'
-                                    }
-                                })}
+                                {...register("firstName", formHandlerProps(FORM_FIELDS.FIRSTNAME))}
                                 placeholder="Enter your first name"
                                 error={errors.firstName?.message}
                             />
 
                             <InputField
-                                {...register("lastName", {
-                                    required: `Last name is required`,
-                                    minLength: {
-                                        value: 6,
-                                        message: 'Minimum character length is 6'
-                                    },
-                                    maxLength: {
-                                        value: 10,
-                                        message: 'Maximum character length is 10'
-                                    }
-                                })}
+                                {...register("lastName", formHandlerProps(FORM_FIELDS.LASTNAME))}
                                 placeholder="Enter your last name"
                                 error={errors.lastName?.message}
                             />
@@ -108,25 +86,13 @@ const EmployeeForm = () => {
 
                         <div className={classes.formRow}>
                             <InputField
-                                {...register("emailAddress", {
-                                    required: `Email address is required`,
-                                    pattern: {
-                                        value: /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/,
-                                        message: "Invalid email address"
-                                    }
-                                })}
+                                {...register("emailAddress", formHandlerProps(FORM_FIELDS.EMAIL))}
                                 placeholder="Enter your email address"
                                 error={errors.emailAddress?.message}
                             />
 
                             <InputField
-                                {...register("phoneNumber", {
-                                    required: `Phone number is required`,
-                                    pattern: {
-                                        value: /^\+65(6|8|9)\d{7}$/,
-                                        message: "Please enter a valid singapore number"
-                                    }
-                                })}
+                                {...register("phoneNumber", formHandlerProps(FORM_FIELDS.PHONE))}
                                 placeholder="Enter your phone number"
                                 error={errors.phoneNumber?.message}
                             />
@@ -134,10 +100,7 @@ const EmployeeForm = () => {
 
                         <div className={classes.formRow}>
                             <InputField
-                                {...register("dob", {
-                                    valueAsDate: true,
-                                    required: `Date of birth is required`,
-                                })}
+                                {...register("dob", formHandlerProps(FORM_FIELDS.DOB))}
                                 type="date"
                                 placeholder="Enter your date of birth"
                                 error={errors.dob?.message}
@@ -147,9 +110,7 @@ const EmployeeForm = () => {
                                 {...register("joinedDate", {
                                     valueAsDate: true,
                                     required: `Joining date is required`,
-                                    validate: (date) =>
-                                        !dobField || date >= dobField || "Joining date must be after date of birth",
-
+                                    validate: (date: any) => !dobField || date >= dobField || "Joining date must be after date of birth",
                                 })}
                                 type="date"
                                 placeholder="Enter your joining date"
@@ -159,9 +120,7 @@ const EmployeeForm = () => {
 
                         <div className={classes.formRow}>
                             <Radiobutton
-                                {...register("gender", {
-                                    required: `Gender is required`
-                                })}
+                                {...register("gender", formHandlerProps(FORM_FIELDS.GENDER))}
                                 radioValues={['male', 'female']}
                                 type="radio"
                                 error={errors.gender?.message}

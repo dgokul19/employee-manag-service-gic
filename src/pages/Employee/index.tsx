@@ -5,12 +5,14 @@ import Container from "../../component/Container";
 import Table from "../../component/Table";
 import Button from "../../component/Button";
 import DeleteModal from "../../component/DeleteModal";
+import Notification from "../../component/Notification";
 
+import { DefaultDeleteModalProps } from "../../utils/types";
+import { useNotification } from "../../hooks/useNotification";
 import { useAppDispatch, useAppSelector } from "../../hooks";
+import { deleteModalValues } from "../../utils/constants";
 import { updateEmployees } from "../../store/reducer/empoyeeReducer";
 import { deleteEmployeeRecord, fetchEmployees } from "../../api/apiServices";
-import { deleteModalValues } from "../../utils/constants";
-import { DefaultDeleteModalProps } from "../../utils/types";
 
 
 // SCSS
@@ -19,13 +21,18 @@ import classes from "./index.module.scss";
 const EmployeeList = () => {
     const navigate = useNavigate();
     const dispatch = useAppDispatch();
+    const { notification, showNotification, clearNotification } = useNotification();
+
     const { employees } = useAppSelector((state) => state.employees);
 
-    const [modal, setModal] = useState<DefaultDeleteModalProps>({...deleteModalValues});
+    const [modal, setModal] = useState<DefaultDeleteModalProps>({ ...deleteModalValues });
 
-    const fetchData = () => {
-        const data = fetchEmployees();
-        dispatch(updateEmployees({ employees: data }));
+    const fetchData = async () => {
+        fetchEmployees().then(response => {
+            dispatch(updateEmployees({ employees: response }));
+        }).catch(err => {
+            showNotification(`Error in fetching data ${err.message}`, "error");
+        });
     }
 
     const handlerEdit = (rowId: string | null) => {
@@ -33,9 +40,9 @@ const EmployeeList = () => {
         navigate(`/employee/edit/${rowId}`)
     };
 
-    const handleDelete = (rowId:string) => {
+    const handleDelete = (rowId: string) => {
         deleteEmployeeRecord(rowId);
-        setModal({...deleteModalValues})
+        setModal({ ...deleteModalValues })
         fetchData();
     };
 
@@ -53,13 +60,20 @@ const EmployeeList = () => {
                 <Table
                     data={employees}
                     editHandler={handlerEdit}
-                    deleteHandler={(id:string) => setModal({isOpen : true, rowId : id})} />
+                    deleteHandler={(id: string) => setModal({ isOpen: true, rowId: id })} />
 
                 <DeleteModal
                     isOpen={modal.isOpen}
                     deleteId={modal.rowId}
-                    onClose={() => setModal({...deleteModalValues})}
+                    onClose={() => setModal({ ...deleteModalValues })}
                     onConfirm={handleDelete}
+                />
+
+                {/* Notification Implementation */}
+                <Notification
+                    message={notification.message}
+                    type={notification.type}
+                    onClose={clearNotification}
                 />
             </Container>
         </div>

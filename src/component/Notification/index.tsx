@@ -2,7 +2,7 @@ import { NotificationProps } from "../../utils/types";
 
 import classes from "./index.module.scss";
 
-const Toast = ({ message, type, onClose }: NotificationProps) => {
+const Notification = ({ message, type, onClose }: NotificationProps) => {
   if (!message) return null;
 
   return (
@@ -15,7 +15,4 @@ const Toast = ({ message, type, onClose }: NotificationProps) => {
   );
 };
 
-export default Toast;
-
-
-// const { notification, showNotification, clearNotification } = useNotification();
+export default Notification;
