@@ -1,5 +1,5 @@
 import { useEffect } from 'react';
-import { BrowserRouter, Route, Routes, Navigate } from 'react-router'
+import { BrowserRouter, Route, Routes, Navigate } from 'react-router';
 import { Provider } from 'react-redux';
 
 // Pages
@@ -8,10 +8,10 @@ import EmployeeList from './pages/Employee'
 import EmployeeForm from './pages/Employee/EmployeeForm';
 
 import { store } from './store/store';
+import { MOCK_EMPLOYEE_DATA } from './store/data';
 
 // CSS
 import './App.scss';
-import { MOCK_EMPLOYEE_DATA } from './store/data';
 
 function App() {
   

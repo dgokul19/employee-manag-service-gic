@@ -47,7 +47,7 @@ const EmployeeForm = () => {
     const onSubmit: SubmitHandler<EmployeeProps> = (data) => {
         const params = Object.assign({}, data);
         if (!params.id) {
-            params.id = params.id ?? generateUUID();
+            params.id = generateUUID();
             postEmployees(params);
             showNotification(`New Employee has been created`, "success");
         } else {
@@ -128,7 +128,7 @@ const EmployeeForm = () => {
                         </div>
                         <div className={classes.footRow}>
                             <div className={classes.backBtn} onClick={() => navigate('/')}>Back</div>
-                            <Button style={{ padding: '12px 18px' }}>Submit</Button>
+                            <Button data-testid="submitBtn" style={{ padding: '12px 18px' }}>Submit</Button>
                         </div>
                     </form>
                 </div>
