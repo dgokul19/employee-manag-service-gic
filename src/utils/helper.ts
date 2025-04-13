@@ -1,4 +1,5 @@
 import { FORM_FIELDS } from "./constants";
+import { EmployeeProps } from "./types";
 
 export function generateUUID() {
   return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function (c) {
@@ -83,3 +84,25 @@ export const formHandlerProps = (fieldName: string, dobField?: any) => {
     }
   }
 };
+
+/* 
+  Function to validate two object has same valid
+  Gets two object parameters
+
+*/
+export const isFormValuesChanged = (obj1:Record<string, any>, obj2:Record<string, any>) => {
+  if(Object.keys(obj1).length !== Object.keys(obj2).length) return false;
+  let isValid = false;
+  for(let index of Object.keys(obj1)){
+    let keyOne = obj1[index];
+    let keyTwo = obj2[index];
+    if(index === 'dob' || index === 'joinedDate'){
+      keyOne = formatDate(keyOne);
+      keyTwo = formatDate(keyTwo);
+    }
+    if(keyOne !== keyTwo){
+      isValid = true;
+    }
+  }
+  return isValid;
+}

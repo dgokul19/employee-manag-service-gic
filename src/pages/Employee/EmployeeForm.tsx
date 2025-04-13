@@ -8,26 +8,28 @@ import Container from "../../component/Container";
 import InputField from "../../component/InputField";
 import Radiobutton from "../../component/Radiobutton";
 import Notification from "../../component/Notification";
+import ConfirmationModal from "../../component/DeleteModal";
 
 // Utils/Constants/Types
 import { postEmployees, updateEmployeeData } from "../../api/apiServices";
 import { EmployeeProps } from "../../utils/types";
 import { employeeForm, FORM_FIELDS } from "../../utils/constants";
-import { formatDate, formHandlerProps, generateUUID } from "../../utils/helper";
+import { isFormValuesChanged, formatDate, formHandlerProps, generateUUID } from "../../utils/helper";
 import { useNotification } from "../../hooks/useNotification";
 import { useAppSelector } from "../../hooks";
+import { selectEmployeeById } from "../../store/reducer/empoyeeReducer";
 
 // SCSS
 import classes from "./index.module.scss";
-import { selectEmployeeById } from "../../store/reducer/empoyeeReducer";
 
 const EmployeeForm = () => {
     const navigate = useNavigate();
     const { id: recordId } = useParams();
     const { notification, showNotification, clearNotification } = useNotification();
     const [formValues, setFormValues] = useState({ ...employeeForm });
+    const [modal, setModal] = useState(false);
 
-    const { register, handleSubmit, watch, reset, formState: { errors } } = useForm<EmployeeProps>({
+    const { register, handleSubmit, watch, reset, getValues,  formState: { errors } } = useForm<EmployeeProps>({
         defaultValues: { ...employeeForm },
         values: formValues
     });
@@ -43,6 +45,14 @@ const EmployeeForm = () => {
         }
     }, [recordId]);
 
+    const handleBackBtn = () => {
+        const formValues = getValues();
+        if(isFormValuesChanged(formValues, editRecord)){
+            setModal(true);
+        } else {
+            navigate("/");
+        }
+    };
 
     const onSubmit: SubmitHandler<EmployeeProps> = (data) => {
         const params = Object.assign({}, data);
@@ -127,7 +137,7 @@ const EmployeeForm = () => {
                             />
                         </div>
                         <div className={classes.footRow}>
-                            <div className={classes.backBtn} onClick={() => navigate('/')}>Back</div>
+                            <div className={classes.backBtn} onClick={handleBackBtn}>Back</div>
                             <Button data-testid="submitBtn" style={{ padding: '12px 18px' }}>Submit</Button>
                         </div>
                     </form>
@@ -139,6 +149,14 @@ const EmployeeForm = () => {
                 type={notification.type}
                 onClose={clearNotification}
             />
+
+            <ConfirmationModal
+                message="Form has been modified. You will lose your unsaved changes."
+                title="Are you sure you want to close this form ?"
+                isOpen={modal}
+                confirmBtnLabel='Confirm'
+                onClose={() => setModal(false)}
+                onConfirm={() => navigate('/')}/>
         </div>
     );
 }

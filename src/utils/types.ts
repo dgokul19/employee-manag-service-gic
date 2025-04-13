@@ -38,13 +38,14 @@ export interface NotificationProps {
 }
 
 
-export type DeleteModalProps = {
+export type ConfirmModalProps = {
     isOpen: boolean;
     onClose: () => void;
     onConfirm: (id: string) => void;
     title?: string;
     deleteId? : string;
     message?: string;
+    confirmBtnLabel?: string
 };
 export type DefaultDeleteModalProps = {
   isOpen : boolean,
