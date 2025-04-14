@@ -55,7 +55,7 @@ const EmployeeList = () => {
             <Container>
                 <div className={classes.table_tile}>
                     <h2>Employee List</h2>
-                    <Button onClick={() => navigate('/employee/add')}> Add Employee</Button>
+                    <Button data-testid="add-button" onClick={() => navigate('/employee/add')}> Add Employee</Button>
                 </div>
                 <Table
                     data={employees}
