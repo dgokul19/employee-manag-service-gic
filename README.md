@@ -1,54 +1,82 @@
-# React + TypeScript + Vite
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+# Employee Managment System
 
-Currently, two official plugins are available:
+Employee Managment System application with features to add/edit/view/delete the employee.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## Prerequistes
+Before installing the Banking App, ensure that your system meets the following requirements:
 
-## Expanding the ESLint configuration
+- Node.js (v14 or later)
+- npm / yarn  
+- Git
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
 
-```js
-export default tseslint.config({
-  extends: [
-    // Remove ...tseslint.configs.recommended and replace with this
-    ...tseslint.configs.recommendedTypeChecked,
-    // Alternatively, use this for stricter rules
-    ...tseslint.configs.strictTypeChecked,
-    // Optionally, add this for stylistic rules
-    ...tseslint.configs.stylisticTypeChecked,
-  ],
-  languageOptions: {
-    // other options...
-    parserOptions: {
-      project: ['./tsconfig.node.json', './tsconfig.app.json'],
-      tsconfigRootDir: import.meta.dirname,
-    },
-  },
-})
+
+## Installation
+
+Follow these steps to install the Banking App.
+
+Step 1: Clone the Repository
+
+```bash
+    git clone https://github.com/dgokul19/employee-manag-service-gic.git
+```
+Alternatively, you can download the zip file from the repository and extract it to your local machine.
+
+Step 2: Install Dependencies
+
+Once you have the project files, open a terminal/command prompt and navigate to the project directory. Run the following command to install all required dependencies:
+
+```bash
+    yarn  
+    -------or------------
+    npm install
+```
+This will install the necessary libraries and packages specified in the package.json file.
+
+
+Step 3: Run Application
+
+Once all the dependencies has been installed,  Run the following command in terminal under same directory.
+
+```bash
+    yarn dev
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+This will run the application in your local machine:
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+visit **http://localhost:5173/**
 
-export default tseslint.config({
-  plugins: {
-    // Add the react-x and react-dom plugins
-    'react-x': reactX,
-    'react-dom': reactDom,
-  },
-  rules: {
-    // other rules...
-    // Enable its recommended typescript rules
-    ...reactX.configs['recommended-typescript'].rules,
-    ...reactDom.configs.recommended.rules,
-  },
-})
+
+
+## Tech Stack
+
+**Client:** 
+```bash
+    React/Typescript - Core Setup,
+    CSS Modules / Sass - Styles, 
+    Redux Toolkit - State Managment
+    React-Router - Navigation
+    Cypress- E2E Test cases
+    React Testing Library- Unit Test cases
+```
+
+
+## Unit Tests
+
+To run Unit Test, Please do the following command in your terminal
+
+```bash
+    npm run test
+```
+
+
+
+## E2E Tests ( Cypress )
+
+To run Unit Test, Please do the following command in your terminal
+
+```bash
+    npm run cy:run - for headless mode
+    npm run cy:open - for normal mode
 ```
