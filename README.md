@@ -79,6 +79,6 @@ To run Unit Test, Please do the following command in your terminal
 To run Unit Test, Please do the following command in your terminal
 
 ```bash
-    npm run cy:run - for headless mode
-    npm run cy:open - for normal mode
+    npm run cy:run   //for headless mode
+    npm run cy:open  //for normal mode
 ```
