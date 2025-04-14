@@ -137,7 +137,7 @@ const EmployeeForm = () => {
                             />
                         </div>
                         <div className={classes.footRow}>
-                            <div className={classes.backBtn} onClick={handleBackBtn}>Back</div>
+                            <div data-testid="backBtn" className={classes.backBtn} onClick={handleBackBtn}>Back</div>
                             <Button data-testid="submitBtn" style={{ padding: '12px 18px' }}>Submit</Button>
                         </div>
                     </form>
