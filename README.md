@@ -59,6 +59,8 @@ visit **http://localhost:5173/**
     React-Router - Navigation
     Cypress- E2E Test cases
     React Testing Library- Unit Test cases
+
+    Data Integration -  Used Browser Session storage
 ```
 
 
