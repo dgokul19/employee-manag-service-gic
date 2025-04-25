@@ -1,5 +1,4 @@
 import { FORM_FIELDS } from "./constants";
-import { EmployeeProps } from "./types";
 
 export function generateUUID() {
   return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function (c) {
@@ -25,7 +24,7 @@ export function formatDate(dateStr: string, format: string = 'YYYY-MM-DD'): stri
   return format.replace(/YYYY|MM|DD|HH|mm|ss/g, token => map[token]);
 }
 
-export const formHandlerProps = (fieldName: string, dobField?: any) => {
+export const formHandlerProps = (fieldName: string) => {
   switch (fieldName) {
     case FORM_FIELDS.FIRSTNAME: {
       return {
